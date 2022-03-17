@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]">
+  <test name="CR27 Ship URL Testing(failed)">
+    <classes>
+      <class name="CR27SMOKE.CR27ShipURL">
+        <methods>
+          <include name="startup"/>
+          <include name="end"/>
+          <include name="cr27ShipURL"/>
+        </methods>
+      </class> <!-- CR27SMOKE.CR27ShipURL -->
+    </classes>
+  </test> <!-- CR27 Ship URL Testing(failed) -->
+</suite> <!-- Failed suite [Suite] -->
