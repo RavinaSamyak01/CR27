@@ -3,6 +3,10 @@ package CR27SMOKE;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +19,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import com.google.gson.*;
@@ -34,6 +40,7 @@ public class CR27ShipURL extends BaseInit {
 
 	@Test
 	public static void cr27ShipURL() throws Exception {
+		WebDriverWait wait = new WebDriverWait(ChDriver, 50);
 
 		File srcCR = new File("./DataFile/CR27SHIPJSON.xls");
 
@@ -147,7 +154,13 @@ public class CR27ShipURL extends BaseInit {
 
 			String refValue = formatter.formatCellValue(sh1.getRow(f).getCell(35));
 
-			String shipDate = formatter.formatCellValue(sh1.getRow(f).getCell(36));
+			// --ShipDate
+			// String shipDate = formatter.formatCellValue(sh1.getRow(f).getCell(36));
+			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+			Calendar cal = Calendar.getInstance();
+			String shipDate = dateFormat.format(cal.getTime());
+			System.out.println("ShipDate==" + shipDate);
+
 			String readyTime = formatter.formatCellValue(sh1.getRow(f).getCell(37));
 			String tpcs = formatter.formatCellValue(sh1.getRow(f).getCell(38));
 
@@ -452,7 +465,8 @@ public class CR27ShipURL extends BaseInit {
 			ChDriver.get(CR27ShipURL);
 			Thread.sleep(5000);
 			getscreenshot();
-
+			
+			Thread.sleep(7000);
 			String AB = ChDriver.findElement(By.xpath("/html/body/pre")).getText();
 			// System.out.println("AB : " + AB);
 
@@ -501,7 +515,8 @@ public class CR27ShipURL extends BaseInit {
 
 		String subject = "Selenium Automation Script: CR27 Ship URL Process";
 		try {
-			Email.sendMail("ravina.prajapati@samyak.com,asharma@samyak.com,parth.doshi@samyak.com", subject, msg.toString(), "./DataFile/CR27SHIPJSON.xls");
+			Email.sendMail("ravina.prajapati@samyak.com,asharma@samyak.com,parth.doshi@samyak.com", subject,
+					msg.toString(), "./DataFile/CR27SHIPJSON.xls");
 		} catch (Exception ex) {
 			Logger.getLogger(CR27ShipURL.class.getName()).log(Level.SEVERE, null, ex);
 		}

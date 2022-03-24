@@ -3,6 +3,9 @@ package CR27RATESMOKE;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -130,7 +133,13 @@ public class CR27RateURL extends BaseInit {
 			String dclosehrs = formatter.formatCellValue(sh1.getRow(f).getCell(25));
 			String daddval = formatter.formatCellValue(sh1.getRow(f).getCell(26));
 
-			String shipDate = formatter.formatCellValue(sh1.getRow(f).getCell(27));
+			// --ShipDate
+			// String shipDate = formatter.formatCellValue(sh1.getRow(f).getCell(27));
+			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+			Calendar cal = Calendar.getInstance();
+			String shipDate = dateFormat.format(cal.getTime());
+			System.out.println("ShipDate==" + shipDate);
+
 			String readyTime = formatter.formatCellValue(sh1.getRow(f).getCell(28));
 			String tpcs = formatter.formatCellValue(sh1.getRow(f).getCell(29));
 
@@ -403,7 +412,8 @@ public class CR27RateURL extends BaseInit {
 
 		String subject = "Selenium Automation Script: CR27 Rate URL Process";
 		try {
-			Email.sendMail("ravina.prajapati@samyak.com,asharma@samyak.com,parth.doshi@samyak.com", subject, msg.toString(), "./DataFile/CR27RATEJSON.xls");
+			Email.sendMail("ravina.prajapati@samyak.com,asharma@samyak.com,parth.doshi@samyak.com", subject,
+					msg.toString(), "./DataFile/CR27RATEJSON.xls");
 		} catch (Exception ex) {
 			Logger.getLogger(CR27RateURL.class.getName()).log(Level.SEVERE, null, ex);
 		}
